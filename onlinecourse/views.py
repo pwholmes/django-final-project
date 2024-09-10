@@ -113,10 +113,10 @@ def extract_answers(request):
    return submitted_anwsers
 
 def submit(request, course_id):
-    course = Course.objects.get_object_or_404(pk=course_id)
+    course = get_object_or_404(Course, pk=course_id)
     user = request.user
     enrollment = Enrollment.objects.get(user=user, course=course)
-    sumbission = Submission.objects.create(enrollment=enrollment)
+    submission = Submission.objects.create(enrollment=enrollment)
     choices = extract_answers(request)
     submission.choices.set(choices)
     submission_id = submission.id
